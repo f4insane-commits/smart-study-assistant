@@ -1,5 +1,5 @@
-import { db } from "@/lib/db";
-import { quizzes } from "@/lib/schema";
+import { connectDB } from "@/lib/db";
+import { QuizModel } from "@/lib/schema";
 import Link from "next/link";
 import { BookOpen, Calendar, ChevronRight } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
@@ -7,7 +7,8 @@ import { formatDistanceToNow } from "date-fns";
 export const dynamic = "force-dynamic";
 
 export default async function QuizzesPage() {
-  const allQuizzes = await db.select().from(quizzes);
+  await connectDB();
+  const allQuizzes = (await QuizModel.find({}).lean()).map((q: any) => ({ ...q, id: q._id }));
 
   return (
     <div className="p-8 h-full flex flex-col max-w-5xl mx-auto w-full">

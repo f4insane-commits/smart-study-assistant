@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAgentLogger } from "@/lib/agents/core";
 import { parseDocument, analyzeDocumentStructure } from "@/lib/agents/analyzer";
 import { generateQuiz } from "@/lib/agents/questionGen";
-import { db } from "@/lib/db";
-import { documents, quizzes } from "@/lib/schema";
+import { connectDB } from "@/lib/db";
+import { DocModel, QuizModel } from "@/lib/schema";
 import { v4 as uuidv4 } from "uuid";
 
 export async function POST(req: NextRequest) {
@@ -21,13 +21,14 @@ export async function POST(req: NextRequest) {
     
     logger.log("Orchestrator", "Saving parsed knowledge base to core database...", "pending");
     const docId = uuidv4();
-    await db.insert(documents).values({ id: docId, userId, filename: file.name, content: text, parsedTopics: JSON.stringify(analysis.topics), createdAt: new Date() });
+    await connectDB();
+    await DocModel.create({ _id: docId, userId, filename: file.name, content: text, parsedTopics: JSON.stringify(analysis.topics), createdAt: new Date() });
     logger.log("Orchestrator", "Knowledge base secured.", "success");
 
     logger.log("Orchestrator", "Triggering proactive QuestionGen Agent for base quiz.", "pending");
     const generatedQuestions = await generateQuiz(text, analysis.title, logger);
     const quizId = uuidv4();
-    await db.insert(quizzes).values({ id: quizId, documentId: docId, topic: analysis.title || "General", questions: JSON.stringify(generatedQuestions), createdAt: new Date() });
+    await QuizModel.create({ _id: quizId, documentId: docId, topic: analysis.title || "General", questions: JSON.stringify(generatedQuestions), createdAt: new Date() });
     
     logger.log("Orchestrator", "Workflow completed. Returning operational state.", "success");
     return NextResponse.json({ success: true, docId, analysis, quizId, logs: logger.getLogs() });

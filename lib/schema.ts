@@ -1,34 +1,32 @@
-import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
+import mongoose, { Schema } from "mongoose";
 
-export const users = sqliteTable("users", {
-  id: text("id").primaryKey(),
-  name: text("name").notNull(),
-  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+const DocumentSchema = new Schema({
+  _id: { type: String, required: true },
+  userId: { type: String, required: true },
+  filename: { type: String, required: true },
+  content: { type: String, required: true },
+  parsedTopics: { type: String },
+  createdAt: { type: Date, default: Date.now },
 });
 
-export const documents = sqliteTable("documents", {
-  id: text("id").primaryKey(),
-  userId: text("user_id").notNull(),
-  filename: text("filename").notNull(),
-  content: text("content").notNull(),
-  parsedTopics: text("parsed_topics"),
-  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+const QuizSchema = new Schema({
+  _id: { type: String, required: true },
+  documentId: { type: String, required: true },
+  topic: { type: String, required: true },
+  questions: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now },
 });
 
-export const quizzes = sqliteTable("quizzes", {
-  id: text("id").primaryKey(),
-  documentId: text("document_id").notNull(),
-  topic: text("topic").notNull(),
-  questions: text("questions").notNull(),
-  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+const UserProgressSchema = new Schema({
+  _id: { type: String, required: true },
+  userId: { type: String, required: true },
+  quizId: { type: String, required: true },
+  topic: { type: String, required: true },
+  score: { type: Number, required: true },
+  total: { type: Number, required: true },
+  completedAt: { type: Date, default: Date.now },
 });
 
-export const userProgress = sqliteTable("user_progress", {
-  id: text("id").primaryKey(),
-  userId: text("user_id").notNull(),
-  quizId: text("quiz_id").notNull(),
-  topic: text("topic").notNull(),
-  score: integer("score").notNull(),
-  total: integer("total").notNull(),
-  completedAt: integer("completed_at", { mode: "timestamp" }).notNull(),
-});
+export const DocModel = mongoose.models.Document || mongoose.model("Document", DocumentSchema);
+export const QuizModel = mongoose.models.Quiz || mongoose.model("Quiz", QuizSchema);
+export const UserProgressModel = mongoose.models.UserProgress || mongoose.model("UserProgress", UserProgressSchema);

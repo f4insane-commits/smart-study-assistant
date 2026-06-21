@@ -1,12 +1,12 @@
-import { db } from "../db";
-import { userProgress } from "../schema";
-import { eq } from "drizzle-orm";
+import { connectDB } from "../db";
+import { UserProgressModel } from "../schema";
 import { createAgentLogger } from "./core";
 
 export async function evaluateProgress(userId: string, logger: ReturnType<typeof createAgentLogger>) {
   logger.log("ProgressTracker", "Evaluating user learning trajectory...", "pending");
   try {
-    const records = await db.select().from(userProgress).where(eq(userProgress.userId, userId));
+    await connectDB();
+    const records = await UserProgressModel.find({ userId }).lean();
     if (records.length === 0) {
       logger.log("ProgressTracker", "No previous history found.", "success");
       return { totalScore: 0, average: 0, topicMastery: {} };

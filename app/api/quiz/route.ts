@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
-import { quizzes, userProgress } from "@/lib/schema";
-import { eq } from "drizzle-orm";
+import { connectDB } from "@/lib/db";
+import { QuizModel, UserProgressModel } from "@/lib/schema";
 import { v4 as uuidv4 } from "uuid";
 import { createAgentLogger } from "@/lib/agents/core";
 
@@ -10,13 +9,14 @@ export const dynamic = "force-dynamic";
 export async function GET(req: NextRequest) {
   const url = new URL(req.url);
   const quizId = url.searchParams.get("quizId");
+  await connectDB();
   if (!quizId) {
-    const all = await db.select({ id: quizzes.id, topic: quizzes.topic, createdAt: quizzes.createdAt }).from(quizzes);
-    return NextResponse.json({ quizzes: all });
+    const all = await QuizModel.find({}).select("_id topic createdAt").lean();
+    return NextResponse.json({ quizzes: all.map(q => ({ id: q._id, topic: q.topic, createdAt: q.createdAt })) });
   }
-  const quizOpt = await db.select().from(quizzes).where(eq(quizzes.id, quizId));
-  if (quizOpt.length === 0) return NextResponse.json({ error: "Not found" }, { status: 404 });
-  return NextResponse.json({ quiz: quizOpt[0] });
+  const quizOpt = await QuizModel.findById(quizId).lean();
+  if (!quizOpt) return NextResponse.json({ error: "Not found" }, { status: 404 });
+  return NextResponse.json({ quiz: { ...quizOpt, id: quizOpt._id } });
 }
 
 export async function POST(req: NextRequest) {
@@ -25,7 +25,8 @@ export async function POST(req: NextRequest) {
   try {
     const { userId, quizId, topic, score, total } = await req.json();
     const id = uuidv4();
-    await db.insert(userProgress).values({ id, userId: userId || "anonymous", quizId, topic, score, total, completedAt: new Date() });
+    await connectDB();
+    await UserProgressModel.create({ _id: id, userId: userId || "anonymous", quizId, topic, score, total, completedAt: new Date() });
     logger.log("ProgressTracker", `Stored user performance for topic "${topic}". Score: ${score}/${total}`, "success");
     logger.log("Orchestrator", "Workflow resolved.", "success");
     return NextResponse.json({ success: true, logs: logger.getLogs() });

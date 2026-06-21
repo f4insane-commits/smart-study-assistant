@@ -2,9 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAgentLogger } from "@/lib/agents/core";
 import { explainConcept } from "@/lib/agents/explainer";
 import { evaluateProgress } from "@/lib/agents/progressTracker";
-import { db } from "@/lib/db";
-import { documents } from "@/lib/schema";
-import { eq } from "drizzle-orm";
+import { connectDB } from "@/lib/db";
+import { DocModel } from "@/lib/schema";
 
 export async function POST(req: NextRequest) {
   const logger = createAgentLogger();
@@ -13,8 +12,9 @@ export async function POST(req: NextRequest) {
     const { docId, concept, userId } = await req.json();
     let context = "";
     if (docId) {
-       const docs = await db.select().from(documents).where(eq(documents.id, docId));
-       if (docs.length > 0) context = docs[0].content;
+       await connectDB();
+       const doc = await DocModel.findById(docId).lean();
+       if (doc) context = doc.content;
     }
     const explanation = await explainConcept(concept, context, logger);
     if (userId) {
