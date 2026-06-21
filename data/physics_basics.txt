@@ -1,0 +1,16 @@
+# Quantum Mechanics Basics
+
+Quantum mechanics is a fundamental theory in physics that provides a description of the physical properties of nature at the scale of atoms and subatomic particles. It is the foundation of all quantum physics including quantum chemistry, quantum field theory, quantum technology, and quantum information science.
+
+## Key Concepts
+
+1. **Wave-Particle Duality**: Every particle or quantum entity may be described as either a particle or a wave. It expresses the inability of the classical concepts "particle" or "wave" to fully describe the behavior of quantum-scale objects.
+
+2. **Uncertainty Principle**: Formulated by Werner Heisenberg, it states that there is a fundamental limit to the precision with which certain pairs of physical properties of a particle, known as complementary variables, such as position and momentum, can be known.
+
+3. **Superposition**: The principle of quantum superposition states that any two (or more) quantum states can be added together ("superposed") and the result will be another valid quantum state.
+
+4. **Entanglement**: Quantum entanglement is a physical phenomenon that occurs when a group of particles is generated, interact, or share spatial proximity in a way such that the quantum state of each particle of the group cannot be described independently of the state of the others, including when the particles are separated by a large distance.
+
+## Applications
+Quantum mechanics has led to many practical applications including the laser, the transistor (and thus the microchip), the electron microscope, and magnetic resonance imaging (MRI).

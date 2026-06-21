@@ -1,15 +1,21 @@
 # 📚 Smart Study Assistant
-### An Intelligent Multi-Agent Learning Platform powered by AI
+
+> **An Intelligent Multi-Agent Learning Platform for Personalized Learning**
 
 <p align="center">
 
-<img src="assets/banner.png" width="100%">
+<img src="assets/banner.png" alt="Smart Study Assistant Banner" width="100%"/>
 
 </p>
 
 <p align="center">
 
-A modern AI-powered study companion that transforms static learning materials into an interactive and personalized learning experience through a collaborative multi-agent architecture.
+![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-38BDF8?logo=tailwindcss)
+![Drizzle ORM](https://img.shields.io/badge/Drizzle-ORM-green)
+![SQLite](https://img.shields.io/badge/SQLite-Database-003B57?logo=sqlite)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
 </p>
 
@@ -17,279 +23,189 @@ A modern AI-powered study companion that transforms static learning materials in
 
 ## 🚀 Overview
 
-Smart Study Assistant leverages multiple specialized AI agents that work together to analyze study materials, explain difficult concepts, generate quizzes, and monitor learning progress.
+Smart Study Assistant transforms static study material into an interactive learning experience using a collaborative **Multi-Agent AI architecture**.
 
-Instead of a single chatbot trying to perform every task, each agent has a dedicated responsibility, making the system more modular, explainable, and scalable.
-
----
-
-## ✨ Key Features
-
-### 📄 Document Intelligence
-
-- Upload PDF and DOCX study materials
-- Automatic text extraction
-- Content segmentation and preprocessing
-- Context-aware document analysis
+Instead of relying on a single AI model for every task, specialized agents work together to analyze documents, generate quizzes, explain difficult concepts, and monitor learning progress.
 
 ---
 
-### 🤖 Multi-Agent AI Architecture
+# ✨ Features
 
-Five specialized AI agents collaborate seamlessly:
+### 🤖 Multi-Agent Intelligence
 
 | Agent | Responsibility |
-|------------|--------------------------------|
-| 🎯 Orchestrator | Coordinates the complete workflow |
-| 📖 Analyzer | Extracts concepts and important topics |
-| ❓ Quiz Generator | Creates personalized MCQs |
-| 💡 Concept Explainer | Simplifies difficult ideas with examples |
-| 📊 Progress Tracker | Monitors performance and learning trends |
+|------------|---------------------------------------------|
+| 🎯 Orchestrator | Coordinates and manages the complete workflow |
+| 📄 Analyzer | Extracts structured topics from PDF/DOCX files |
+| ❓ Question Generator | Creates adaptive quizzes with multiple difficulty levels |
+| 💡 Explainer | Produces simple explanations and real-world analogies |
+| 📈 Progress Tracker | Tracks mastery and generates learning analytics |
 
 ---
 
-### 📝 Adaptive Quiz Generation
+### 📚 Smart Learning
 
-- Multiple Choice Questions
-- Difficulty Levels
-    - Easy
-    - Medium
-    - Hard
-- Instant Feedback
-- Score Tracking
+- Upload PDF and DOCX study materials
+- Automatic concept extraction
+- AI-generated adaptive quizzes
+- Context-aware concept explanations
+- Instant feedback and scoring
 
 ---
 
-### 💡 Intelligent Concept Explanation
+### 📊 Analytics Dashboard
 
-Receive explanations that include:
+Track your learning with
 
-- Simple language
-- Real-world analogies
-- Step-by-step breakdowns
-- Key takeaways
-- Memory tips
-
----
-
-### 📈 Learning Analytics
-
-Visual dashboard displaying
-
-- Quiz Performance
-- Topic Mastery
-- Learning Progress
-- Weak Areas
-- Study Insights
+- Topic mastery
+- Quiz performance
+- Progress over time
+- Weak area identification
+- Personalized insights
 
 ---
 
-### 🔍 Agent Transparency
+### 🔍 Transparent AI Workflow
 
-Observe how AI agents collaborate internally.
+Visualize how agents collaborate in real time through
 
 - Agent communication logs
+- Execution timeline
 - Workflow visualization
 - Decision traceability
-- Execution pipeline
 
 ---
 
-## 🏛️ System Architecture
+### 🎨 Modern User Experience
+
+- Glassmorphism UI
+- Dark theme
+- Responsive design
+- Smooth animations
+- Beautiful dashboards
+
+---
+
+# 🏗️ System Architecture
 
 ```mermaid
 graph TD
 
-A[Student Uploads Document]
+User([User])
 
-A --> B[Orchestrator Agent]
+User -->|Upload PDF/DOCX| O[Orchestrator]
 
-B --> C[Document Analyzer]
+O --> A[Analyzer Agent]
 
-B --> D[Quiz Generator]
+A --> DB[(Knowledge Store)]
 
-B --> E[Concept Explainer]
+O --> Q[Question Generator]
 
-B --> F[Progress Tracker]
+Q --> DB
 
-C --> G[Knowledge Base]
+Q --> O
 
-G --> D
+User --> PT[Progress Tracker]
 
-G --> E
+PT --> DB
 
-D --> H[Interactive Quiz]
+User --> E[Concept Explainer]
 
-E --> I[Study Assistant]
+E --> DB
 
-F --> J[Analytics Dashboard]
+E --> User
 ```
 
 ---
 
-## ⚙️ Technology Stack
-
-### Frontend
-
-- Next.js 14
-- React
-- TypeScript
-- Tailwind CSS
-
-### UI
-
-- Framer Motion
-- Lucide Icons
-- Glassmorphism Design
-- Responsive Layout
-
-### AI
-
-- Multi-Agent Architecture
-- LLM Orchestration
-- Prompt Engineering
-- Context Management
-
-### Backend
-
-- Next.js API Routes
-- Server Actions
-- File Processing Pipeline
-
----
-
-## 📂 Project Structure
+# 🔄 Multi-Agent Workflow
 
 ```
-study-assistant/
-├── app/
-│   ├── (main)/
-│   │   ├── dashboard/
-│   │   ├── quiz/
-│   │   ├── explain/
-│   │   └── page.tsx
-│   ├── api/
-│   │   ├── upload/
-│   │   ├── analyze/
-│   │   ├── quiz/
-│   │   ├── explain/
-│   │   └── progress/
-│   └── layout.tsx
-├── components/
-│   ├── ui/ (shadcn components)
-│   ├── AgentLog.tsx
-│   ├── QuizCard.tsx
-│   ├── ProgressChart.tsx
-│   └── ...
-├── lib/
-│   ├── agents/ (orchestrator, analyzer, etc.)
-│   ├── documentParser.ts
-│   ├── llm.ts
-│   ├── db.ts
-│   └── utils.ts
-├── prisma/ (or drizzle)
-├── public/
-├── data/ (sample documents)
-├── .env.example
-├── next.config.js
-├── tailwind.config.ts
-├── tsconfig.json
-└── README.md
-```
-
----
-
-## 🎯 Multi-Agent Workflow
-
-```
-Document Upload
-
-↓
-
+Upload Document
+        │
+        ▼
 Orchestrator Agent
-
-↓
-
+        │
+        ▼
 Document Analysis
-
-↓
-
+        │
+        ▼
 Knowledge Extraction
-
-↓
-
-Parallel Execution
-
-├── Quiz Generation
-
-├── Concept Explanation
-
-└── Progress Evaluation
-
-↓
-
+        │
+        ▼
+Parallel Agent Execution
+    ├── Quiz Generation
+    ├── Concept Explanation
+    └── Progress Evaluation
+        │
+        ▼
 Interactive Dashboard
 ```
 
 ---
 
-## 🎨 User Experience
+# 🛠️ Tech Stack
 
-✔ Modern Dark Theme
-
-✔ Frosted Glass Components
-
-✔ Smooth Animations
-
-✔ Responsive Design
-
-✔ Accessible Interface
-
-✔ Clean Information Hierarchy
+| Category | Technology |
+|-----------------|-----------------------------|
+| Frontend | Next.js 15 |
+| Language | TypeScript |
+| Styling | Tailwind CSS |
+| Database | SQLite |
+| ORM | Drizzle ORM |
+| AI SDK | Google GenAI |
+| Charts | Recharts |
 
 ---
 
-## 📊 Learning Pipeline
+# 📂 Project Structure
 
 ```
-Upload Notes
-        │
-        ▼
-Analyze Content
-        │
-        ▼
-Extract Concepts
-        │
-        ▼
-Generate Quiz
-        │
-        ▼
-Explain Concepts
-        │
-        ▼
-Evaluate Performance
-        │
-        ▼
-Track Progress
+smart-study-assistant/
+
+├── app/
+├── components/
+├── agents/
+│   ├── orchestrator/
+│   ├── analyzer/
+│   ├── question-generator/
+│   ├── explainer/
+│   └── progress-tracker/
+├── lib/
+├── db/
+├── public/
+└── README.md
 ```
 
 ---
 
-## 🚀 Getting Started
+# ⚙️ Getting Started
 
-Clone the repository
-
-```bash
-git clone https://github.com/SAKETH-V/smart-study-assistant.git
-```
-
-Install dependencies
+## 1. Install Dependencies
 
 ```bash
 npm install
 ```
 
-Run locally
+## 2. Configure Environment
+
+Create a `.env` file.
+
+```env
+GEMINI_API_KEY=your_api_key
+```
+
+---
+
+## 3. Initialize Database
+
+```bash
+npx drizzle-kit push
+```
+
+---
+
+## 4. Start Development Server
 
 ```bash
 npm run dev
@@ -303,42 +219,111 @@ http://localhost:3000
 
 ---
 
-## 🔮 Future Enhancements
+# 📈 Learning Pipeline
 
-- Voice-based tutoring
-- Flashcard generation
-- AI Study Planner
-- Collaborative learning rooms
-- Spaced repetition engine
-- Personalized recommendations
-- Multi-language support
+```
+Study Material
+
+      │
+
+      ▼
+
+Document Analysis
+
+      │
+
+      ▼
+
+Concept Extraction
+
+      │
+
+      ▼
+
+Quiz Generation
+
+      │
+
+      ▼
+
+Concept Explanation
+
+      │
+
+      ▼
+
+Performance Evaluation
+
+      │
+
+      ▼
+
+Progress Tracking
+```
 
 ---
 
-## 🌟 Why Multi-Agent?
+# 🔮 Roadmap
 
-Unlike traditional single-agent assistants, this system:
-
-- Improves task specialization
-- Produces more consistent outputs
-- Enables transparent reasoning
-- Scales independently
-- Supports modular development
+- 🎙️ Voice Tutor
+- 🃏 Flashcard Generation
+- 📅 AI Study Planner
+- 👥 Collaborative Study Rooms
+- 🔁 Spaced Repetition Engine
+- 🌍 Multi-language Support
+- 📱 Mobile Optimization
 
 ---
 
-## 🤝 Contributing
+# 🌟 Why Multi-Agent?
 
-Contributions, suggestions, and feature requests are welcome.
+Compared with traditional single-agent assistants, this architecture provides:
+
+- Better task specialization
+- Improved output consistency
+- Transparent execution flow
+- Modular scalability
+- Easier maintenance and extension
+
+---
+
+# 🤝 Contributing
+
+Contributions are welcome.
 
 1. Fork the repository
 2. Create a feature branch
+
+```bash
+git checkout -b feature/new-feature
+```
+
 3. Commit your changes
-4. Open a Pull Request
+
+```bash
+git commit -m "Add new feature"
+```
+
+4. Push the branch
+
+```bash
+git push origin feature/new-feature
+```
+
+5. Open a Pull Request
 
 ---
 
+# 📄 License
 
-*Transforming learning into an intelligent, interactive experience.*
+This project is released under the **MIT License**.
+
+---
+
+<p align="center">
+
+### 📚 Smart Study Assistant
+
+**Transforming learning into an intelligent, interactive, and personalized experience through Multi-Agent AI.**
 
 </p>
