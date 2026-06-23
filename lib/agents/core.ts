@@ -1,8 +1,8 @@
 import { GoogleGenAI } from "@google/genai";
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-export const ORCHESTRATOR_MODEL = "gemini-3.5-flash";
-export const HEAVY_MODEL = "gemini-3.5-flash";
+export const ORCHESTRATOR_MODEL = "gemini-2.5-flash";
+export const HEAVY_MODEL = "gemini-2.5-flash";
 
 export type AgentLog = {
   id: string;

@@ -31,7 +31,7 @@ export async function analyzeDocumentStructure(text: string, logger: ReturnType<
   const prompt = `Extract main topics and return a structured JSON breakdown. Return ONLY valid JSON in format: {"title": "Title", "summary": "summary", "topics": ["topic1"]}\nText:\n${text}`;
   const response = await ai.generateContent({ model: HEAVY_MODEL, contents: prompt, config: { responseMimeType: "application/json" } });
   try {
-    const parsed = JSON.parse(response.text || "{}");
+    const parsed = JSON.parse(response.text ?? "{}");
     logger.log("Analyzer", `Identified ${parsed.topics?.length || 0} core topics.`, "success");
     return parsed;
   } catch (e) {

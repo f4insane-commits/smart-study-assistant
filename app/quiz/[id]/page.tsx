@@ -31,7 +31,8 @@ export default function QuizInterface() {
       setCurrentIndex(i => i + 1); setSelectedOption(null); setIsAnswered(false); setExplanation(null);
     } else {
       setLoading(true);
-      const res = await fetch("/api/quiz", { method: "POST", body: JSON.stringify({ userId: "demo_user", quizId: quiz.id, topic: quiz.topic, score, total: quiz.questionsArray.length }) });
+      const finalScore = selectedOption === quiz.questionsArray[currentIndex].correctAnswerIndex ? score + 1 : score;
+      const res = await fetch("/api/quiz", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ userId: "demo_user", quizId: quiz.id, topic: quiz.topic, score: finalScore, total: quiz.questionsArray.length }) });
       const data = await res.json(); if (data.logs) setLogs(data.logs);
       setLoading(false); setCompleted(true);
     }
@@ -40,7 +41,7 @@ export default function QuizInterface() {
   const requestDeepExplanation = async () => {
     setExplaining(true); setLogs([]);
     const q = quiz.questionsArray[currentIndex];
-    const res = await fetch("/api/explain", { method: "POST", body: JSON.stringify({ docId: quiz.documentId, concept: q.question }) });
+    const res = await fetch("/api/explain", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ docId: quiz.documentId, concept: q.question }) });
     const data = await res.json(); if (data.logs) setLogs(data.logs);
     if (data.explanation) setExplanation(data.explanation); setExplaining(false);
   };

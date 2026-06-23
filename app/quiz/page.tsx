@@ -35,7 +35,7 @@ export default async function QuizzesPage() {
                 <h3 className="text-lg font-semibold text-slate-200 line-clamp-1">{q.topic}</h3>
                 <div className="flex items-center gap-2 mt-4 text-xs font-medium text-slate-500">
                   <Calendar className="w-4 h-4" />
-                  {formatDistanceToNow(new Date(q.createdAt), { addSuffix: true })}
+                  {formatDistanceToNow(new Date(String(q.createdAt)), { addSuffix: true })}
                 </div>
                 <div className="mt-4 pt-4 border-t border-white/10 flex justify-between items-center text-sm font-medium text-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity">
                   <span>Start Quiz</span> <ChevronRight className="w-4 h-4" />

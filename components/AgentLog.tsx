@@ -16,15 +16,14 @@ const agentColors = {
 export default function AgentLogPanel({ logs }: { logs: AgentLog[] }) {
   const [visibleLogs, setVisibleLogs] = useState<AgentLog[]>([]);
   useEffect(() => {
-    if (logs.length === 0) return;
-    if (logs[0].id !== visibleLogs[0]?.id && logs.length > visibleLogs.length) {
-       setVisibleLogs([]); let i = 0;
-       const interval = setInterval(() => {
-         if (i < logs.length) { setVisibleLogs(prev => [...prev, logs[i]]); i++; }
-         else clearInterval(interval);
-       }, 400); 
-       return () => clearInterval(interval);
-    }
+    if (logs.length === 0) { setVisibleLogs([]); return; }
+    setVisibleLogs([]);
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i < logs.length) { setVisibleLogs(prev => [...prev, logs[i]]); i++; }
+      else clearInterval(interval);
+    }, 400);
+    return () => clearInterval(interval);
   }, [logs]);
 
   return (

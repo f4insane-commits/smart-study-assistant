@@ -12,7 +12,7 @@ export async function generateQuiz(documentText: string, contextTopic: string | 
 
   const response = await ai.generateContent({ model: HEAVY_MODEL, contents: prompt, config: { responseMimeType: "application/json" } });
   try {
-    const parsed = JSON.parse(response.text || "{}");
+    const parsed = JSON.parse(response.text ?? "{}");
     logger.log("QuestionGen", `Successfully mapped ${parsed.questions?.length || 0} smart questions.`, "success");
     return parsed.questions || [];
   } catch (e) {
